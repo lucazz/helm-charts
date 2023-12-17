@@ -1,3 +1,4 @@
+---
 apiVersion: v1
 kind: Service
 metadata:
@@ -7,9 +8,9 @@ metadata:
 spec:
   type: {{ .Values.service.type }}
   ports:
-    - port: {{ .Values.service.port }}
-      targetPort: http
-      protocol: TCP
+    - port: {{ .Values.service.servicePort }}
+      targetPort: {{ .Values.service.containerPort }}
+      protocol: {{ .Values.service.protocol }}
       name: http
   selector:
     {{- include "homebridge.selectorLabels" . | nindent 4 }}

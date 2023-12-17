@@ -1,0 +1,15 @@
+---
+{{- if .Values.extraEnvVars}}
+apiVersion: apps/v1
+kind: configMap 
+metadata:
+  name: {{ include "homebridge.fullname" . }}
+  labels:
+    {{- include "homebridge.labels" . | nindent 4 }}
+data:
+  {{- range $key, $value := .Values.extraEnvVars}}
+  {{ $key }}: {{ $value | quote }}
+  {{- end }}
+{{- end }}
+
+

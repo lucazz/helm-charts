@@ -44,17 +44,22 @@ startupProbe:
     path: /
     port: 8581
 
-pvc:
-  storageClass: "microk8s-hostpath"
-  size: 1Gi
-  accessModes:
-    - ReadWriteOnce
-
-podAnnotations: {}
+pvcs:
+  storagePath:
+    mountPath: /var/lib/homebridge
+    storageClass: "microk8s-hostpath"
+    size: 500Mi
+    accessModes:
+      - ReadWriteOnce
+  main:
+    mountPath: /homebridge
+    storageClass: "microk8s-hostpath"
+    size: 500Mi
+    accessModes:
+      - ReadWriteOnce
 
 podSecurityContext: {}
 # fsGroup: 2000
-
 securityContext: {}
 # capabilities:
 #   drop:
@@ -98,3 +103,5 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+podAnnotations: {}

@@ -1,7 +1,7 @@
 ---
 {{- if .Values.extraEnvVars}}
-apiVersion: apps/v1
-kind: configMap 
+apiVersion: v1
+kind: ConfigMap 
 metadata:
   name: {{ include "homebridge.fullname" . }}
   labels:
@@ -11,5 +11,3 @@ data:
   {{ $key }}: {{ $value | quote }}
   {{- end }}
 {{- end }}
-
-

@@ -6,8 +6,21 @@ metadata:
   labels:
     {{- include "homebridge.labels" . | nindent 4 }}
 spec:
-  storageClassName: {{ .Values.pvc.storageClass }}
-  accessModes: {{ .Values.pvc.accessModes }}
+  storageClassName: {{ .Values.pvcs.main.storageClass }}
+  accessModes: {{ .Values.pvcs.main.accessModes }}
   resources:
     requests:
-      storage: {{ .Values.pvc.size }}
+      storage: {{ .Values.pvcs.main.size }}
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ include "homebridge.fullname" . }}-storage-path
+  labels:
+    {{- include "homebridge.labels" . | nindent 4 }}
+spec:
+  storageClassName: {{ .Values.pvcs.storagePath.storageClass }}
+  accessModes: {{ .Values.pvcs.storagePath.accessModes }}
+  resources:
+    requests:
+      storage: {{ .Values.pvcs.storagePath.size }}

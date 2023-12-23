@@ -6,6 +6,8 @@ metadata:
   labels:
     {{- include "homebridge.labels" . | nindent 4 }}
 spec:
+  strategy:
+    type: Recreate
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
@@ -42,19 +44,18 @@ spec:
             - name: http
               containerPort: {{ .Values.service.containerPort }} 
               protocol: {{ .Values.service.protocol }} 
+          {{- with .Values.startupProbe }}
+          startupProbe:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.readinessProbe }}
           livenessProbe:
-            initialDelaySeconds: {{ .Values.livenessProbe.initialDelaySeconds }}
-            periodSeconds: {{ .Values.livenessProbe.periodSeconds }}
-            timeoutSeconds: {{ .Values.livenessProbe.timeoutSeconds }}
-            successThreshold: {{ .Values.livenessProbe.successThreshold }}
-            failureThreshold: {{ .Values.livenessProbe.failureThreshold }}
-            httpGet:
-              path: {{ .Values.livenessProbe.path  }}
-              port: {{ .Values.livenessProbe.port }}  
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.readinessProbe }}
           readinessProbe:
-            httpGet:
-              path: {{ .Values.readinessProbe.path  }} 
-              port: {{ .Values.readinessProbe.port }}
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       volumes:

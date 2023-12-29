@@ -1,0 +1,14 @@
+apiVersion: v1
+entries:
+  homebridge:
+  - apiVersion: v2
+    appVersion: 1.1.4
+    created: "2023-12-29T17:41:59.168089793Z"
+    description: A Helm chart for deploying homebridge on Kubernetes
+    digest: fe304dfcb33f35b7def8ad3651ab0d2c46c8c71a5f3413de0f73a215bc0ffb2b
+    name: homebridge
+    type: application
+    urls:
+    - https://github.com/lucazz/helm-charts/releases/download/homebridge-0.0.2/homebridge-0.0.2.tgz
+    version: 0.0.2
+generated: "2023-12-29T17:41:59.168098649Z"

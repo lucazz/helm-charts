@@ -60,16 +60,11 @@ spec:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
             - name: {{ include "homebridge.fullname" . }}
-              mountPath: {{ .Values.pvcs.main.mountPath }}
-            - name: {{ include "homebridge.fullname" . }}-storage-path
-              mountPath: {{ .Values.pvcs.storagePath.mountPath }}
+              mountPath: {{ .Values.pvc.mountPath }}
       volumes:
         - name: {{ include "homebridge.fullname" . }}
           persistentVolumeClaim:
             claimName: {{ include "homebridge.fullname" . }}
-        - name: {{ include "homebridge.fullname" . }}-storage-path
-          persistentVolumeClaim:
-            claimName: {{ include "homebridge.fullname" . }}-storage-path
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
